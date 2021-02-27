@@ -21,4 +21,16 @@ class BookControllerFunctionalSpec extends RestSpec {
         rsp.json.totalCount == 1
         rsp.json.results.first().author == 'Burt Beckwith'
     }
+
+    void "Test the search groovy action correctly searches"() {
+        expect:
+        bookDataService.count()
+
+        when:
+        RestResponse rsp = get("/book/search/groovy")
+
+        then: "The list is returned with only one instance"
+        rsp.json.totalCount == 5
+        rsp.json.results.first().author == 'Venkat Subramaniam'
+    }
 }
